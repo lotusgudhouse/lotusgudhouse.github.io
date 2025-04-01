@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotus Gud House</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+        }
+
+        /* Updated CSS for the gradient background */
+        .gradient-background {
+            background: linear-gradient(to bottom,
+                #FFFFFF,
+                #FFF5EE,
+                #F8C878,
+                #D2691E,
+                #F5F5DC,
+                #D38B47
+            );
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            position: relative; /* Allows for absolutely positioned elements within */
+        }
+
+        /* Glowing haze effect */
+        .gradient-background::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1); /* Very subtle white haze */
+            opacity: 0;
+            transition: opacity 2s ease; /* Smooth transition for potential animation */
+            pointer-events: none; /* Ensures haze doesn't interfere with clicks */
+            /* Removed blur here, added to animation */
+        }
+
+        .gradient-background.haze-active::before {
+            opacity: 0.2; /* Make haze visible */
+            animation: softBlur 4s infinite alternate; /* Add animation here */
+        }
+
+        @keyframes softBlur {
+            from {
+                filter: blur(0px);
+            }
+            to {
+                filter: blur(10px); /* Subtle blur effect */
+            }
+        }
+
+
+        /* Light streaks or orbs */
+        .light-streaks-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* So they don't interfere with clicks */
+            overflow: hidden;  /* Clip any overflowing streaks/orbs */
+        }
+
+        .light-streak, .light-orb {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2); /* Very faint white */
+            border-radius: 50%;
+            opacity: 0;
+            animation: moveAndFade 6s infinite alternate; /* Combined animation */
+            pointer-events: none;
+            filter: blur(4px); /* Add a little blur to the streaks and orbs */
+        }
+
+        .light-streak {
+            width: 2px;  /* Make them thin */
+            height: 50px; /* and long */
+        }
+        .light-orb{
+            width: 10px;
+            height: 10px;
+        }
+
+        @keyframes moveAndFade {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            50%{
+               opacity: 0.3;
+            }
+            100% {
+                transform: translate(100px, 100px); /* Example movement */
+                opacity: 0;
+            }
+        }
+
+        /* Custom CSS for the blurred header */
+        .blurred-header {
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding-top: 1.25rem; /* Exactly between 0.75rem (original) and 1.5rem (previous) */
+            padding-bottom: 1.25rem;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 0 0 2rem 2rem; /* Between original and previous */
+            display: flex;
+            align-items: center;
+        }
+
+        .blurred-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .blurred-header a.text-xl {
+            font-size: 1.5rem; /* Original: ~1.25rem, Previous: 1.75rem */
+        }
+
+        .blurred-header nav ul li a {
+            font-size: 1.1rem; /* Original: 1rem, Previous: 1.25rem */
+            padding: 0.375rem 0.75rem; /* Balanced padding */
+        }
+
+        .illustrated-bg {
+            background-color: transparent;
+        }
+        .font-sf-pro-rounded{
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* CSS for Acrylic/Glassmorphism Effect on Banners */
+        .acrylic-banner {
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        header .container{
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        header h1{
+            font-size: 3rem;
+        }
+        header nav ul li a{
+            font-size: 1.2rem;
+        }
+
+        #additional-products {
+            display: none;
+        }
+
+    </style>
+</head>
+<body class="gradient-background">
+    <header class="blurred-header py-4 md:py-6 rounded-b-3xl shadow-xl sticky top-0 z-10">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-xl md:text-2xl font-semibold text-pink-600 font-sf-pro-rounded">
+                <span class="font-bold">Lotus</span> Gud House
+            </a>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="text-gray-700 hover:text-pink-500 transition duration-300 font-sf-pro-rounded">Home</a></li>
+                    <li><a href="#products" class="text-gray-700 hover:text-pink-500 transition duration-300 font-sf-pro-rounded">Products</a></li>
+                    <li><a href="#about" class="text-gray-700 hover:text-pink-500 transition duration-300 font-sf-pro-rounded">About Us</a></li>
+                    <li><a href="#contact" class="text-gray-700 hover:text-pink-500 transition duration-300 font-sf-pro-rounded">Contact</a></li>
+                </ul>
+            </nav>
+            <button id="hamburger-btn" class="md:hidden text-pink-500 focus:outline-none" aria-label="Toggle Navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-90 z-50">
+            <div class="bg-white w-80 h-full absolute right-0 p-6 rounded-3xl shadow-lg">
+                <div class="flex justify-end mb-4">
+                    <button id="close-menu-btn" class="text-gray-700 focus:outline-none" aria-label="Close Menu">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="block">
+                    <ul class="space-y-4">
+                        <li><a href="#home" class="block text-lg text-gray-700 hover:text-pink-500 transition duration-300 font-sf-pro-rounded">Home</a></li>
+                        <li><a href="#products" class="block text-lg text-gray-700 hover:text-pink-500 transition duration-300 font-sf-pro-rounded">Products</a></li>
+                        <li><a href="#about" class="block text-lg text-gray-700 hover:text-pink-500 transition duration-300 font-sf-pro-rounded">About Us</a></li>
+                        <li><a href="#contact" class="block text-lg text-gray-700 hover:text-pink-500 transition duration-300 font-sf-pro-rounded">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 md:py-10">
+        <section id="home" class="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
+            <div class="md:w-1/2 text-center md:text-left">
+                <h1 class="text-3xl md:text-4xl font-semibold text-pink-700 mb-4 font-sf-pro-rounded">
+                    Indulge in Nature's Luxuries
+                </h1>
+                <p class="text-gray-700 mb-6 font-sf-pro-rounded">
+                    Discover a curated collection of handcrafted chocolate fudge brownies, luxurious candles, and nourishing skincare and haircare products.  We believe in creating experiences that not only delight the senses but also nourish the body and soul.  Our products are crafted with the finest natural ingredients, sourced with care, and designed to bring a touch of luxury to your everyday life.  From the rich, decadent flavors of our brownies to the exquisite aromas of our candles and the gentle, rejuvenating touch of our skincare, we invite you to explore a world of natural indulgence.
+                </p>
+                <a href="#products" class="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-3xl transition duration-300 font-sf-pro-rounded">
+                    Explore Our Products
+                </a>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Luxury Products" class="rounded-lg shadow-lg">
+            </div>
+        </section>
+
+        <section id="products" class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-semibold text-pink-700 text-center mb-8 font-sf-pro-rounded">Our Products</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="acrylic-banner rounded-3xl shadow-md p-6 flex flex-col justify-between">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 font-sf-pro-rounded">Chocolate Fudge Brownies</h3>
+                    <p class="text-gray-600 mb-4 font-sf-pro-rounded">
+                        Indulge in the rich, decadent taste of our handcrafted chocolate fudge brownies.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4 font-sf-pro-rounded">
+                        <li>Classic Chocolate Fudge Brownie - A timeless treat with a rich, fudgy texture and intense chocolate flavor. Made with premium cocoa and locally sourced butter, this brownie is a chocolate lover's dream.</li>
+                        <li>Peanut Butter Swirl Brownie - Creamy peanut butter swirled into our classic brownie batter for a delightful nutty twist. The combination of rich chocolate and smooth peanut butter creates a truly irresistible treat.</li>
+                        <li>Double Chocolate Chunk Brownie - Loaded with chunks of dark and milk chocolate for an extra decadent experience.  Each bite is an explosion of chocolatey goodness.</li>
+                        <li>Salted Caramel Brownie - A perfect balance of sweet and salty, with a gooey caramel center and a sprinkle of sea salt. The caramel adds a luscious, buttery flavor that complements the rich chocolate.</li>
+                        <li>Espresso Brownie - Infused with rich espresso for a deep, complex flavor that coffee lovers will adore. The espresso enhances the chocolate flavor and adds a subtle kick.</li>
+                    </ul>
+                </div>
+                <div class="acrylic-banner rounded-3xl shadow-md p-6 flex flex-col justify-between">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 font-sf-pro-rounded">Luxurious Candles</h3>
+                    <p class="text-gray-600 mb-4 font-sf-pro-rounded">
+                        Illuminate your space with our exquisite, long-lasting candles.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4 font-sf-pro-rounded">
+                        <li>Serenity Spa Candle - A calming blend of lavender, eucalyptus, and mint, perfect for relaxation.  This candle creates a soothing and tranquil atmosphere, like a day at the spa.</li>
+                        <li>Enchanted Forest Candle - A woodsy and grounding scent with notes of cedarwood, pine, and amber.  Bring the outdoors in with this earthy and invigorating fragrance.</li>
+                        <li>Citrus Burst Candle - A refreshing and invigorating aroma with hints of lemon, grapefruit, and orange.  This vibrant scent will uplift your spirits and energize your space.</li>
+                        <li>Vanilla Bean Candle - A warm and comforting scent with rich, creamy vanilla notes.  This classic fragrance creates a cozy and inviting ambiance.</li>
+                        <li>Spiced Chai Candle - A cozy and inviting fragrance with a blend of cinnamon, cardamom, and clove.  This warm and spicy scent is perfect for creating a cozy atmosphere.</li>
+                    </ul>
+                </div>
+                <div class="acrylic-banner rounded-3xl shadow-md p-6 flex flex-col justify-between">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 font-sf-pro-rounded">Skincare & Haircare</h3>
+                    <p class="text-gray-600 mb-4 font-sf-pro-rounded">
+                        Nourish your body with our natural, rejuvenating skincare and haircare products.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4 font-sf-pro-rounded">
+                        <li>Hydrating Facial Serum - A lightweight serum packed with hyaluronic acid and antioxidants to deeply hydrate and revitalize the skin.  This serum absorbs quickly and leaves your skin feeling soft, smooth, and radiant.</li>
+                        <li>Nourishing Hair Mask - A rich and creamy mask infused with argan oil and shea butter to repair and strengthen dry, damaged hair.  This mask will leave your hair feeling healthy, shiny, and manageable.</li>
+                        <li>Soothing Body Lotion - A silky smooth lotion with aloe vera and chamomile to soothe and moisturize sensitive skin.  This lotion is gentle and effective, leaving your skin feeling soft and hydrated.</li>
+                         <li>Gentle Exfoliating Scrub - A mild scrub with jojoba beads and fruit enzymes to gently remove dead skin cells and reveal a brighter complexion.  This scrub will leave your skin feeling smooth and refreshed.</li>
+                        <li> укрепляющий шампунь - A fortifying shampoo with biotin and keratin to promote healthy hair growth and prevent breakage. This shampoo will help to strengthen your hair and prevent damage.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="acrylic-banner rounded-3xl shadow-md p-8 md:p-10 mb-16">
+            <h2 class="text-2xl md:text-3xl font-semibold text-pink-700 text-center mb-8 font-sf-pro-rounded">About Us</h2>
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2 text-gray-700 font-sf-pro-rounded">
+                    <p class="mb-4">
+                        Welcome to Lotus Gud House, where indulgence meets nature. We are passionate about crafting
+                        high-quality products that nourish your body and soul.
+                    </p>
+                    <p class="mb-4">
+                        Our journey began with a vision to create luxurious experiences using the finest natural ingredients.
+                        From decadent chocolate fudge brownies to exquisite candles and rejuvenating skincare,
+                        we pour our heart into every creation.
+                    </p>
+                    <p class="mb-4">
+                        At Lotus Gud House, we believe in the power of nature to inspire and rejuvenate.  We meticulously
+                        source the finest natural ingredients, ensuring that every product we offer is not only a treat
+                        for the senses but also a testament to the Earth's bounty. Our commitment to sustainability
+                        and ethical practices is woven into the fabric of our brand, reflecting our deep respect
+                        for the environment and the communities we work with.
+                    </p>
+                    <p class="mb-4">
+                        Every product tells a story, rooted in the rich traditions of artisanal craftsmanship and the
+                        bountiful gifts of nature.  Our chocolate fudge brownies are made with premium cocoa and locally
+                        sourced butter, creating a symphony of flavor that melts in your mouth.  Our candles are hand-poured
+                        with natural soy wax and infused with essential oils, creating captivating aromas that transform
+                        any space into a sanctuary.  And our skincare and haircare products are formulated with plant-based
+                        extracts and nourishing oils, delivering gentle yet effective care that enhances your natural beauty.
+                    </p>
+                    <p class="mb-4">
+                         We are more than just a purveyor of luxurious goods; we are a community of individuals who
+                        appreciate the beauty and balance of the natural world.  We believe that self-care is not
+                        selfish, but essential, and that taking time to indulge in simple pleasures can have a
+                        profound impact on our overall well-being.  That's why we strive to create products that not
+                        only look and feel good, but also promote a sense of harmony and connection with nature.
+                    </p>
+                    <p>
+                        We are committed to quality, sustainability, and your satisfaction.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="acrylic-banner rounded-3xl shadow-md p-6 md:p-8 mb-16">
+            <h2 class="text-2xl md:text-3xl font-semibold text-pink-700 text-center mb-8 font-sf-pro-rounded">Contact Us</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 font-sf-pro-rounded">Get in Touch</h3>
+                        <p class="text-gray-600 mb-2 font-sf-pro-rounded">Email: kabatkrishnasai@gmail.com</p>
+                        <p class="text-gray-600 mb-2 font-sf-pro-rounded">Phone: 8249698504</p>
+                        <p class="text-gray-600 font-sf-pro-rounded">Address: India</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 font-sf-pro-rounded">Send us a Message</h3>
+                        <form>
+                            <div class="mb-4">
+                                <input type="text" placeholder="Your Name" class="w-full px-4 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-500 font-sf-pro-rounded">
+                            </div>
+                            <div class="mb-4">
+                                <input type="email" placeholder="Your Email" class="w-full px-4 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-500 font-sf-pro-rounded">
+                            </div>
+                            <div class="mb-4">
+                                <textarea placeholder="Your Message" class="w-full px-4 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-500 h-32 font-sf-pro-rounded"></textarea>
+                            </div>
+                            <button type="submit" class="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-3xl transition duration-300 font-sf-pro-rounded">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gradient-to-r from-pink-100 to-white py-4 rounded-t-3xl shadow-md">
+        <div class="container mx-auto px-4 text-center text-gray-700 font-sf-pro-rounded">
+            &copy; 2024 Lotus Gud House. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const hamburgerBtn = document.getElementById("hamburger-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const closeMenuBtn = document.getElementById("close-menu-btn");
+        const mobileMenuLinks = mobileMenu.querySelectorAll("a");
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('section');
+
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle("hidden");
+        }
+
+        hamburgerBtn.addEventListener("click", toggleMobileMenu);
+        closeMenuBtn.addEventListener("click", toggleMobileMenu);
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener("click", toggleMobileMenu);
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(event.target) && event.target !== hamburgerBtn) {
+                toggleMobileMenu();
+            }
+        });
+
+        function updateActiveNavLink() {
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === currentSectionId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNavLink);
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+
+
+        // Add haze effect on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('haze-active');
+
+             // Create light streaks
+            const numStreaks = 15; // Number of streaks
+            const streaksContainer = document.createElement('div');
+            streaksContainer.classList.add('light-streaks-container
